@@ -1,20 +1,21 @@
-name: Say Hello
+name: python pipeline
 on: push
-jobs:
-  job1:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - run: python hello.py
 
-  job2:
-    name: Build
-    needs: Test
+jobs:
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: action/checkout@v2
+      - run: python hello.py
+  
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: action/checkout@v2
       - uses: action/upload-artifact@v2
         with:
           name: hello
           path: .
+
+  
